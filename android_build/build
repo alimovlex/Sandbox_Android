@@ -1,0 +1,62 @@
+#!/bin/bash
+
+set -e
+
+BUILD_TOOLS_DIR="$ANDROID_USER_HOME/build-tools/30.0.3"
+AAPT2="$BUILD_TOOLS_DIR/aapt2"
+D8="$BUILD_TOOLS_DIR/d8"
+ZIPALIGN="$BUILD_TOOLS_DIR/zipalign"
+APKSIGNER="$BUILD_TOOLS_DIR/apksigner"
+ANDROID_31="$ANDROID_USER_HOME/platforms/android-31/android.jar"
+DEBUGKEY="$HOME/.local/android/debug.keystore"
+
+if [ -d target ]; then
+    rm target/* -fr
+fi
+mkdir -p target/apk
+mkdir -p target/compiled
+mkdir -p target/classes
+
+$AAPT2 compile -o target/compiled res/mipmap/ic_launcher_hdpi.png
+$AAPT2 compile -o target/compiled res/mipmap/ic_launcher_ldpi.png
+$AAPT2 compile -o target/compiled res/mipmap/ic_launcher_mdpi.png
+$AAPT2 compile -o target/compiled res/mipmap/ic_launcher_xhdpi.png
+$AAPT2 compile -o target/compiled res/layout/layout.xml
+$AAPT2 compile -o target/compiled res/values/strings.xml
+
+$AAPT2 link -o target/apk \
+    --output-to-dir	\
+    -I $ANDROID_31 \
+    --java code \
+    --auto-add-overlay \
+    --manifest AndroidManifest.xml \
+    target/compiled/layout_layout.xml.flat \
+    target/compiled/mipmap_ic_launcher_ldpi.png.flat \
+    target/compiled/mipmap_ic_launcher_xhdpi.png.flat \
+    target/compiled/mipmap_ic_launcher_hdpi.png.flat \
+    target/compiled/mipmap_ic_launcher_mdpi.png.flat \
+    target/compiled/values_strings.arsc.flat
+
+
+javac code/com/demo/example/*.java \
+    -cp $ANDROID_31 \
+    -d target/classes
+
+$D8 --debug --output target/apk \
+    --min-api 21 \
+    --lib $ANDROID_31 \
+    target/classes/com/demo/example/*.class
+
+pushd target/apk
+zip -r ../unaligned.unsigned.apk *
+popd
+
+$ZIPALIGN -p -f -v 4 target/unaligned.unsigned.apk target/unsigned.apk
+
+$APKSIGNER sign --out target/example.apk \
+    --in target/unsigned.apk \
+    --ks $DEBUGKEY \
+    --ks-key-alias "debug" \
+    --ks-pass "pass:android" \
+
+$APKSIGNER verify target/example.apk
