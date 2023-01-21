@@ -1,4 +1,4 @@
-# Android apk template (example) without using gradle.
+# Android apk templates (examples) without using gradle.
 
 
 Prerequisites
