@@ -1,0 +1,10 @@
+*
+!README.md
+!.gitignore
+
+!AndroidManifest.xml
+!code
+!code/**
+!res
+!res/**
+!build
