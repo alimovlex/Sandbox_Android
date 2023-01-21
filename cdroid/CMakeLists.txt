@@ -1,15 +1,23 @@
 cmake_minimum_required(VERSION 3.10)
 project(cdroid C)
 
-set(CMAKE_C_STANDARD 99)
+set(CMAKE_C_STANDARD 11)
 
 # cmake module with pack_apk and create[_debug]_keystore
 include(cmake/cdroid.cmake)
+include_directories(inc)
 
 find_library(log_lib log REQUIRED)
 
 # we use add_library instead of add_executable for android
-add_library(cdroid SHARED src/main.c)
+add_library(cdroid SHARED 
+                src/main.c 
+                src/Tutorial.c
+                src/mman.c
+                src/array.c
+                src/OODbg.c
+                src/Object.c)
+
 target_link_libraries(cdroid PRIVATE android ${log_lib})
 
 # create a keystore file and use it when packaging apk
