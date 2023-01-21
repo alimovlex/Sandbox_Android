@@ -3,14 +3,14 @@
 
 Prerequisites
 ==
-- [JDK-11](https://jdk.java.net/java-se-ri/11)
+- [JDK-17](https://jdk.java.net/java-se-ri/17)
 - zip
 - [Command line tools](https://developer.android.com/studio#downloads)
 - [Setting Up Enviroment Variables](https://developer.android.com/studio/command-line/variables)
     - Example of my .bashrc
         ```bash
         ## Java part
-        export JAVA_HOME="$HOME/.local/java/jdk-11"
+        export JAVA_HOME="$HOME/.local/java/jdk-17"
         if [[ ! $PATH == *"$JAVA_HOME/bin"* ]]; then
             export PATH="$PATH:$JAVA_HOME/bin"
         fi
@@ -25,7 +25,7 @@ Prerequisites
         ```
 - Using [`sdkmanager`](https://developer.android.com/studio/command-line/sdkmanager) install.
     ``` shell
-    $ sdkmanager "build-tools;30.0.3" "platform-tools" "platforms;android-31"
+    $ sdkmanager "build-tools;29.0.3" "platform-tools" "platforms;android-29"
     ```
 
 Debug Key
