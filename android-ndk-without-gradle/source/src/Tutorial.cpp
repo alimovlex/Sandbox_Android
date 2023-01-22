@@ -28,7 +28,8 @@
 #include <memory>
 #include <cstdarg>
 #include "Tutorial.hpp"
-#include "STLTest.hpp"
+#include "Logger.hpp"
+
 //----------------------------------------MACROSES
 #define MIN(a,b) (((a)<(b)) ? a : b)
 #define MAX(a,b) (((a)>(b)) ? a : b)
@@ -52,7 +53,7 @@ int fileTest()
 	}
 	else
 	{
-		cout << "Something went wrong"<<endl;
+		LOGI("Something went wrong");
         return -1;
 	}
 	MyFile.close();
@@ -76,13 +77,13 @@ int testingPointers()
 	int x = 1;
 	int *pointer_to_x = &x;
 	int & nickname_x = x; //the link to x variable
-	cout <<"x="<< x << endl;
+	LOGI("x=%d", x);
 	int y = *pointer_to_x;
 	y = 3;
 	*pointer_to_x = 4;
 	nickname_x = *pointer_to_x;
-	cout <<"y="<< *pointer_to_x << endl;
-	cout<<"nickname x="<<nickname_x<<endl;
+	LOGI("y = %d", *pointer_to_x);
+	LOGI("reference to x = %p", nickname_x);
 	int *p = &x;
 	p = &y;
 	*p = 0;
@@ -100,9 +101,9 @@ int testingPointers()
 	pptr = &ptr;
     cout<<hex;//hexadecimal output mode
 	// take the value using pptr
-	cout << "Value of var :" << var << endl;
-	cout << "Value available at *ptr :" << *ptr << endl;
-	cout << "Value available at **pptr :" << **pptr << endl;
+	LOGI("Value of var : %d", var);
+	LOGI("Value available at *ptr : %p", *ptr); 
+	LOGI("Value available at **pptr : %p", **pptr);
 
     function<int()> fcnPtr;
     fcnPtr = localTimeCheck;
@@ -132,27 +133,27 @@ int localTimeCheck()
 	// convert now to string form
 	char* dt = ctime(&now);
 
-	cout << "The local date and time is: " << dt << endl;
+	LOGI("The local date and time is: %s", dt);
 
 	// convert now to tm struct for UTC
 	tm *gmtm = gmtime(&now);
 	dt = asctime(gmtm);
-	cout << "The UTC date and time is:" << dt << endl;
+	LOGI("The UTC date and time is: %s", dt);
 
     return 0;
 }
 
 int dataTypeSizeTest()
 {
-	cout << "Size of char : " << sizeof(char) << " byte" << endl;
-	cout << "Size of int : " << sizeof(int)	<< " bytes" << endl;
-	cout << "Size of short int : " << sizeof(short int)	<< " bytes" << endl;
-	cout << "Size of long int : " << sizeof(long int) << " bytes" << endl;
-	cout << "Size of signed long int : " << sizeof(signed long int)	<< " bytes" << endl;
-	cout << "Size of unsigned long int : " << sizeof(unsigned long int)	<< " bytes" << endl;
-	cout << "Size of float : " << sizeof(float)	<< " bytes" << endl;
-	cout << "Size of double : " << sizeof(double) << " bytes" << endl;
-	cout << "Size of wchar_t : " << sizeof(wchar_t)	<< " bytes" << endl;
+	LOGI("Size of char : %d byte", sizeof(char));
+	LOGI("Size of int : %d bytes", sizeof(int));
+	LOGI("Size of short int : %d bytes", sizeof(short int));
+	LOGI("Size of long int : %d bytes", sizeof(long int));
+	LOGI("Size of signed long int : %d bytes", sizeof(signed long int));
+	LOGI("Size of unsigned long int : %d bytes", sizeof(unsigned long int));
+	LOGI("Size of float : %d bytes", sizeof(float));
+	LOGI("Size of double : %d bytes", sizeof(double));
+	LOGI("Size of wchar_t : %d bytes", sizeof(wchar_t));
 
     return 0;
 }
@@ -180,15 +181,15 @@ int timerFunction(int(func)())
 
 int preprocessingTest()
 {
-	cout<<__func__<<endl;//print the name of the function
-	cout<<"Minimum of 20 and 30 = "<<MIN(20, 30)<<endl;
-	cout<<"Maximum of 20 and 30 = "<<MAX(20, 30)<<endl;
-	cout<<MKSTR(HELLO C++)<<endl;
-	cout<<"Value of __LINE__ : "<< __LINE__<<endl;
-	cout<<"Value of __FILE__ : "<< __FILE__<<endl;
-	cout<<"Value of __DATE__ : "<< __DATE__<<endl;
-	cout<<"Value of __TIME__ : "<< __TIME__<<endl;
-	cout<<"Multiplication = "<<MULTIPLY(20, 30)<<endl;
-	cout<<RECEIVE(GeeksQuiz)<<endl;
+	LOGI("%s", __func__);
+	LOGI("Minimum of 20 and 30 = %d", MIN(20, 30));
+	LOGI("Maximum of 20 and 30 = %d", MAX(20, 30));
+	LOGI(MKSTR(HELLO C++));
+	LOGI("Value of __LINE__ : %d", __LINE__);
+	LOGI("Value of __FILE__ : %s", __FILE__);
+	LOGI("Value of __DATE__ : %s", __DATE__);
+	LOGI("Value of __TIME__ : %s", __TIME__);
+	LOGI("Multiplication = %d", MULTIPLY(20, 30));
+	LOGI("%s", RECEIVE(GeeksQuiz));
     return 0;
 }

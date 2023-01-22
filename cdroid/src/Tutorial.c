@@ -136,11 +136,11 @@ int pointersTest()
 	sa += 5;
 	LOGI("a = %d, sa = %d", a, sa);
 	LOGI("The address of j is %p", &j);
-	LOGI("The value of j is %d\n", j);
+	LOGI("The value of j is %d", j);
     LOGI("address of function pointersTest is :%p", pointersTest);
     int *some_int = unique_ptr(int, rand()%10);//Using smart pointers library
     int(*func)() = unique_ptr(int, localTimeCheck()); //CHECK THIS STRING
-    LOGI("Smart Pointer Address %p has %d Smart Pointer value\n", some_int, *some_int);
+    LOGI("Smart Pointer Address %p has %d Smart Pointer value", some_int, *some_int);
 	testingPointers(&j, &x, func);
     return 0;
 }
@@ -176,17 +176,17 @@ int fileTest(struct android_app *app)
 
 int preprocessingTest()
 {
-	LOGI("%s\n", __func__);//print the name of the function
-	LOGI("Minimum of 20 and 30 = %d\n", MIN(20, 30));
-	LOGI("Maximum of 20 and 30 = %d\n", MAX(20, 30));
+	LOGI("%s", __func__);//print the name of the function
+	LOGI("Minimum of 20 and 30 = %d", MIN(20, 30));
+	LOGI("Maximum of 20 and 30 = %d", MAX(20, 30));
 	LOGI(MKSTR(HELLO C++));
-	LOGI("\nValue of __LINE__ : %d\n", __LINE__);
-	LOGI("Value of __FILE__ : %s\n", __FILE__);
-	LOGI("\nValue of __DATE__ : %s\n", __DATE__);
-	LOGI("\nValue of __TIME__ : %s\n", __TIME__);
-	LOGI("Multiplication = %d\n", MULTIPLY(20, 30));
+	LOGI("Value of __LINE__ : %d", __LINE__);
+	LOGI("Value of __FILE__ : %s", __FILE__);
+	LOGI("Value of __DATE__ : %s", __DATE__);
+	LOGI("Value of __TIME__ : %s", __TIME__);
+	LOGI("Multiplication = %d", MULTIPLY(20, 30));
 	//printf(merge("Hello ", "World\n"));
-	LOGI("%s\n", get(GeeksQuiz));
+	LOGI("%s", get(GeeksQuiz));
 	//printf("\a"); signal exclamation
     return 0;
 }
@@ -200,16 +200,16 @@ int dataTypeSizeTest()
 	long double c = 3.14;
 	struct SizeOfTypes;
 	//-------------------------------printing the variables defined above along with their sizes 
-	LOGI("Size of char %ld\n",sizeof(b));
-	LOGI("Size of long int %ld\n",sizeof(a));
-	LOGI("Size of long double %ld\n", sizeof(c));
-	LOGI("Size of float %ld\n", sizeof(x));
-	LOGI("Size of int %ld\n", sizeof(z));
-	LOGI("Size of structure of data types %ld\n", sizeof(TypeSize));
-    LOGI("Value of INT_MAX %d\n", INT_MAX);
-    LOGI("Value of INT_MIN %d\n", INT_MIN);
-    LOGI("Value of FLT_MAX %f\n", FLT_MAX);
-    LOGI("Value of FLT_MIN %f\n", FLT_MIN);
+	LOGI("Size of char %ld",sizeof(b));
+	LOGI("Size of long int %ld",sizeof(a));
+	LOGI("Size of long double %ld", sizeof(c));
+	LOGI("Size of float %ld", sizeof(x));
+	LOGI("Size of int %ld", sizeof(z));
+	LOGI("Size of structure of data types %ld", sizeof(TypeSize));
+    LOGI("Value of INT_MAX %d", INT_MAX);
+    LOGI("Value of INT_MIN %d", INT_MIN);
+    LOGI("Value of FLT_MAX %f", FLT_MAX);
+    LOGI("Value of FLT_MIN %f", FLT_MIN);
     return 0;
 }
 
@@ -220,7 +220,7 @@ void timerFunction(int(func)())
     func();
     t = clock() - t;
     double time_taken = ((double)t) / CLOCKS_PER_SEC;
-    LOGI("function %s took %f seconds to execute \n", __FUNCTION__, time_taken);
+    LOGI("function %s took %f seconds to execute ", __FUNCTION__, time_taken);
 }
 
 int localTimeCheck()
@@ -236,7 +236,7 @@ int localTimeCheck()
 	tmp = localtime(&t);
 	// using strftime to display time 
 	strftime(MY_TIME, sizeof(MY_TIME), "%x - %I:%M%p", tmp);
-	LOGI("Formatted date & time : %s\n", MY_TIME);
+	LOGI("Formatted date & time : %s", MY_TIME);
 	return 0;
 }
 
@@ -256,10 +256,10 @@ int sandbox()
 {
 	pthread_t t0;
     if(pthread_create(&t0,NULL,characterSetTest,NULL)==-1)
-        LOGI("Unable to create a thread for circuitListTest function\n");
+        LOGI("Unable to create a thread for sandbox function");
 	void *result;
     if(pthread_join(t0,&result)==-1) {
-        LOGI("Can't join thread circuitListTest\n");
+        LOGI("Can't join thread sandbox");
         return -1;
     }
     else

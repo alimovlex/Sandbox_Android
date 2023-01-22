@@ -4,11 +4,6 @@
 #include "Logger.h"
 #include "Object.h"
 
-#define APPNAME "CDROID"
-#define LOGI(...) __android_log_print(ANDROID_LOG_INFO, APPNAME, __VA_ARGS__)
-#define LOGA(cond, ...) __android_log_assert(cond, APPNAME, __VA_ARGS__)
-
-
 void android_main(struct android_app *app) {
     //characterSetTest();
     listFiles();

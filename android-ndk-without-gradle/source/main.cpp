@@ -1,8 +1,14 @@
-#include <android/log.h>
-#include <android/native_activity.h>
+#include "Logger.hpp"
+#include "Tutorial.hpp"
 
 JNIEXPORT
 void ANativeActivity_onCreate(ANativeActivity * /*activity*/, void * /*savedState*/, size_t /*savedStateSize*/) 
 {
-  __android_log_print(ANDROID_LOG_INFO, "hello-world", "Well, this worked!"); // NOLINT
+  //__android_log_print(ANDROID_LOG_INFO, "hello-world", "Well, this worked!"); // NOLINT
+  //timerFunction(fileTest);
+  fileTest();
+  testingPointers();
+  dataTypeSizeTest();
+  preprocessingTest();
+
 }
