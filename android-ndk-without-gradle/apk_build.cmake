@@ -29,6 +29,7 @@ macro(setup_variant VARIANT)
     EXCLUDE_FROM_ALL TRUE
     CMAKE_ARGS
     -DANDROID_ABI=${VARIANT}
+    -DANDROIDVERSION=29
     -DANDROID_NDK=/home/robot/android/ndk-bundle
     -DANDROID_STL=c++_static
     -DCMAKE_INSTALL_PREFIX=${CMAKE_CURRENT_BINARY_DIR}/install/${VARIANT}
