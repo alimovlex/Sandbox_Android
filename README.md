@@ -1,4 +1,4 @@
-# Android apk templates (examples) without using gradle. [![Lines of code](https://tokei.rs/b1/github/alimovlex/Sandbox_Android?category=code)](https://github.com/alimovlex/Sandbox_Android)
+# Android apk templates (examples) without using gradle.
 
 
 Prerequisites
