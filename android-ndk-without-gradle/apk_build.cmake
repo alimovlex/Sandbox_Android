@@ -1,20 +1,20 @@
 include(ExternalProject)
 
-set(ANDROID_SDK_ROOT $ENV{ANDROID_SDK_ROOT} CACHE PATH "/home/robot/android")
+set(ANDROID_SDK_ROOT $ENV{ANDROID_SDK_ROOT} CACHE PATH "$ENV{HOME}/android")
 
 set(ANDROID_PLATFORM_TOOLS_DIR "${ANDROID_SDK_ROOT}/platform-tools")
 
 file(GLOB ANDROID_BUILD_TOOLS_VERSIONS "${ANDROID_SDK_ROOT}/build-tools/*")
 list(POP_BACK ANDROID_BUILD_TOOLS_VERSIONS ANDROID_BUILD_TOOLS_LATEST)
-set(ANDROID_BUILD_TOOLS_DIR "${ANDROID_BUILD_TOOLS_LATEST}" CACHE PATH "/home/robot/android/build-tools/29.0.3")
+set(ANDROID_BUILD_TOOLS_DIR "${ANDROID_BUILD_TOOLS_LATEST}" CACHE PATH "$ENV{HOME}/android/build-tools/29.0.3")
 
 file(GLOB ANDROID_NDK_VERSIONS "${ANDROID_SDK_ROOT}/ndk-bundle/*")
 list(POP_BACK ANDROID_NDK_VERSIONS ANDROID_NDK_LATEST)
-set(ANDROID_NDK "${ANDROID_NDK_LATEST}" CACHE PATH "/home/robot/android/ndk-bundle")
+set(ANDROID_NDK "${ANDROID_NDK_LATEST}" CACHE PATH "$ENV{HOME}/android/ndk-bundle")
 
 file(GLOB ANDROID_JAR_VERSIONS "${ANDROID_SDK_ROOT}/platforms/*")
 list(POP_BACK ANDROID_JAR_VERSIONS ANDROID_JAR_LATEST)
-set(ANDROID_JAR "${ANDROID_JAR_LATEST}/android.jar" CACHE PATH "/home/robot/android/platforms/android-29")
+set(ANDROID_JAR "${ANDROID_JAR_LATEST}/android.jar" CACHE PATH "$ENV{HOME}/android/platforms/android-29")
 
 find_program(ADB       NAMES adb       REQUIRED PATHS ${ANDROID_PLATFORM_TOOLS_DIR})
 find_program(AAPT2     NAMES aapt2     REQUIRED PATHS ${ANDROID_BUILD_TOOLS_DIR})
@@ -30,11 +30,11 @@ macro(setup_variant VARIANT)
     CMAKE_ARGS
     -DANDROID_ABI=${VARIANT}
     -DANDROIDVERSION=29
-    -DANDROID_NDK=/home/robot/android/ndk-bundle
+    -DANDROID_NDK=$ENV{HOME}/android/ndk-bundle
     -DANDROID_STL=c++_static
     -DCMAKE_INSTALL_PREFIX=${CMAKE_CURRENT_BINARY_DIR}/install/${VARIANT}
     -DCMAKE_LIBRARY_OUTPUT_DIRECTORY=${APK_CONTENTS_ROOT}/lib/${VARIANT}
-    -DCMAKE_TOOLCHAIN_FILE=/home/robot/android/ndk-bundle/build/cmake/android.toolchain.cmake
+    -DCMAKE_TOOLCHAIN_FILE=$ENV{HOME}/android/ndk-bundle/build/cmake/android.toolchain.cmake
     )
 endmacro()
 setup_variant(arm64-v8a)
@@ -61,7 +61,7 @@ add_custom_command(
   )
 add_custom_command(
   OUTPUT ${RESOURCES_APK}
-  COMMAND ${AAPT2} link ${VALUES_STRING} -o ${RESOURCES_APK} --manifest ${MANIFEST} -I /home/robot/android/platforms/android-29/android.jar
+  COMMAND ${AAPT2} link ${VALUES_STRING} -o ${RESOURCES_APK} --manifest ${MANIFEST} -I $ENV{HOME}/android/platforms/android-29/android.jar
   DEPENDS ${MANIFEST} ${VALUES_STRING}
   )
 add_custom_command(

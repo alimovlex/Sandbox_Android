@@ -6,8 +6,8 @@ GET_OS=$(uname -s)
 
 case $GET_OS in
     "Linux")
-    BUILD_TOOLS="/home/robot/android/build-tools/29.0.3"
-    PLATFORM="/home/robot/android/platforms/android-29/android.jar"
+    BUILD_TOOLS="$HOME/android/build-tools/29.0.3"
+    PLATFORM="$HOME/android/platforms/android-29/android.jar"
     ;;
     "Darwin")
     BUILD_TOOLS="$HOME/Library/Android/sdk/build-tools/30.0.3"

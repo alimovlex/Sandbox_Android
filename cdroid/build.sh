@@ -3,7 +3,7 @@
 adb shell am force-stop com.example.cdroid
 adb uninstall com.example.cdroid
 mkdir build && cd build
-cmake .. -DCMAKE_TOOLCHAIN_FILE="/home/robot/android/ndk-bundle/build/cmake/android.toolchain.cmake" -DANDROID_SDK="/home/robot/android" -DANDROID_PLATFORM="android-29" -DANDROID_ABI=arm64-v8a
+cmake .. -DCMAKE_TOOLCHAIN_FILE="$HOME/android/ndk-bundle/build/cmake/android.toolchain.cmake" -DANDROID_SDK="$HOME/android" -DANDROID_PLATFORM="android-29" -DANDROID_ABI=x86_64
 cmake --build . --target create_keystore cdroid
 
 adb install result.apk

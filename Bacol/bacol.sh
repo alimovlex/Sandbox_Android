@@ -167,6 +167,7 @@ fi
 keytool -genkey -v -keystore my-release-key.keystore -alias standkey -keyalg RSA -keysize 2048 -validity 10000 -storepass password -keypass password -dname "CN=example.com, OU=ID, O=Example, L=Doe, S=John, C=GB"
 $apksigner sign --key-pass pass:password --ks-pass pass:password --ks my-release-key.keystore --out out/app_signed.apk out/app_unsigned.apk
 echo "Flashing apk"
+adb install out/app_signed.apk 
 adb shell am start -n com.github.amitkma.helloandroid/com.github.amitkma.helloandroid.MainActivity
 
 if [ $? -ne 0 ]

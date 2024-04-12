@@ -1,9 +1,9 @@
-TOOLCHAIN = /home/robot/android
+TOOLCHAIN = $(HOME)/android
 GCC = $(TOOLCHAIN)/ndk-bundle/toolchains/llvm/prebuilt/linux-x86_64/bin/aarch64-linux-android29-clang
-CXX_FLAGS = -march=armv8-a --sysroot=$(TOOLCHAIN)/sysroot
+CXX_FLAGS = -march=x86_64 --sysroot=$(TOOLCHAIN)/sysroot
 
-BUILD_TOOLS=/home/robot/android/build-tools/29.0.3
-PLATFORM=/home/robot/android/platforms/android-29/android.jar
+BUILD_TOOLS=$(HOME)/android/build-tools/29.0.3
+PLATFORM=$(HOME)/android/platforms/android-29/android.jar
 
 AAPT2=$(BUILD_TOOLS)/aapt2
 D8=$(BUILD_TOOLS)/d8
