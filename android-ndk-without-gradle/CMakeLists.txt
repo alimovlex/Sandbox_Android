@@ -7,9 +7,10 @@ if(UMBRELLA)
 endif()
 
 set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
+file(GLOB JNI "source/inc/*.hpp" "source/src/*.cpp" "source/main.cpp")
 include_directories(source/inc)
-add_library(hello-world SHARED source/main.cpp
-                               source/src/Tutorial.cpp
-                               source/src/GRE.cpp)
+include_directories($ENV{JAVA_HOME}/include)
+include_directories($ENV{JAVA_HOME}/lib)
+add_library(hello-world SHARED ${JNI})
 target_link_libraries(hello-world PUBLIC log)
 install(TARGETS hello-world)
