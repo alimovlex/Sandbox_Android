@@ -1,0 +1,95 @@
+{
+    "version": 3,
+    "cmakeMinimumRequired": {
+        "major": 3,
+        "minor": 21,
+        "patch": 0
+    },
+    "configurePresets": [
+        {
+            "name": "ccache-env",
+            "hidden": true,
+            "environment": {
+                "CCACHE_BASEDIR": "${sourceDir}",
+                "CCACHE_SLOPPINESS": "pch_defines,time_macros"
+            }
+        },
+        {
+            "name": "android",
+            "hidden": true,
+            "toolchainFile": "/home/robot/android/ndk-bundle/build/cmake/android.toolchain.cmake",
+            "cacheVariables": {
+                "ANDROID_ABI": "x86_64",
+                "ANDROID_PLATFORM": "23",
+                "ANDROID_SDK": "/home/robot/android",
+                "ANDROID_BUILD_ABI_x86_64": "ON"
+            },
+            "environment": {
+                "JAVA_HOME": "/usr/lib/jvm/java-17-temurin",
+                "ANDROID_SDK_ROOT": "/home/robot/android",
+                "ANDROID_NDK_ROOT": "/home/robot/android/ndk-bundle"
+            },
+            "binaryDir": "${sourceDir}/build_android"
+        },
+        {
+            "name": "Qt-desktop",
+            "hidden": true,
+            "cacheVariables": {
+                "CMAKE_PREFIX_PATH": "/home/robot/Qt/5.15.2/gcc_64"
+            },
+            "binaryDir": "${sourceDir}/build"
+        },
+        {
+            "name": "Qt-android",
+            "hidden": true,
+            "cacheVariables": {
+                "CMAKE_PREFIX_PATH": "/home/robot/Qt/5.15.2/android",
+                "CMAKE_FIND_ROOT_PATH_MODE_PACKAGE": "BOTH"
+            }
+        },
+        {
+            "name": "ci-ninja",
+            "displayName": "Ninja",
+            "description": "build using Ninja generator",
+            "inherits": [
+                "ccache-env"
+            ],
+            "generator": "Ninja",
+            "hidden": true
+        },
+        {
+            "name": "ci-ninja-debug",
+            "displayName": "Ninja Debug",
+            "inherits": [
+                "Qt-desktop",
+                "ci-ninja"
+            ],
+            "cacheVariables": {
+                "CMAKE_BUILD_TYPE": "Debug"
+            }
+        },
+        {
+            "name": "ci-ninja-release",
+            "displayName": "Ninja Release",
+            "inherits": [
+                "Qt-desktop",
+                "ci-ninja"
+            ],
+            "cacheVariables": {
+                "CMAKE_BUILD_TYPE": "Release"
+            }
+        },
+        {
+            "name": "ci-ninja-android-debug",
+            "displayName": "Ninja Android Debug",
+            "inherits": [
+                "Qt-android",
+                "ci-ninja",
+                "android"
+            ],
+            "cacheVariables": {
+                "CMAKE_BUILD_TYPE": "Debug"
+            }
+        }
+    ]
+}
